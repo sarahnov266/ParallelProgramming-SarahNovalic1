@@ -1,0 +1,79 @@
+--------------------------------------------------------------------------------
+CPU name:	AMD Ryzen 5 5625U with Radeon Graphics         
+CPU type:	AMD K19 (Zen3) architecture
+CPU clock:	2.27 GHz
+Unknown fixed event 0x1
+--------------------------------------------------------------------------------
+
+Clover Version    1.300
+       MPI Version
+   Task Count      1
+
+
+Clover Version    1.300
+       MPI Version
+   Task Count      1
+
+ Output file clover.out opened. All output will go there.
+ Step       1 time   0.0000000 control    sound    timestep   2.31E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock    4.3084144592285156E-002
+ Average time per cell    6.5741187427192926E-007
+ Step time per cell       6.5742642618715763E-007
+ Step       2 time   0.0231097 control    sound    timestep   1.41E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock    8.7907075881958008E-002
+ Average time per cell    6.7067776399198920E-007
+ Step time per cell       6.8182271206751466E-007
+ Step       3 time   0.0372157 control    sound    timestep   1.79E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.13497114181518555     
+ Average time per cell    6.8649872749422991E-007
+ Step time per cell       7.1080285124480724E-007
+ Step       4 time   0.0551390 control    sound    timestep   1.89E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.18017792701721191     
+ Average time per cell    6.8732424551853910E-007
+ Step time per cell       6.8783629103563726E-007
+ Step       5 time   0.0740238 control    sound    timestep   2.08E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.22482609748840332     
+ Average time per cell    6.8611479946412142E-007
+ Step time per cell       6.7840664996765554E-007
+ Step       6 time   0.0948055 control    sound    timestep   2.07E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.27233004570007324     
+ Average time per cell    6.9257112045306712E-007
+ Step time per cell       7.2317561716772616E-007
+ Step       7 time   0.1155402 control    sound    timestep   2.11E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.31926202774047852     
+ Average time per cell    6.9593599099399791E-007
+ Step time per cell       7.1440081228502095E-007
+ Step       8 time   0.1366695 control    sound    timestep   2.22E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.36434698104858398     
+ Average time per cell    6.9493671617237851E-007
+ Step time per cell       6.8607914727181196E-007
+ Step       9 time   0.1588925 control    sound    timestep   2.20E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.40986514091491699     
+ Average time per cell    6.9489396992139518E-007
+ Step time per cell       6.9197267293930054E-007
+ Step      10 time   0.1808760 control    sound    timestep   2.18E-02       1,       1 x  1.95E-02 y  1.95E-02
+ Wall clock   0.46033811569213867     
+ First step overhead  -1.5988349914550781E-003
+--------------------------------------------------------------------------------
+Group 1: FLOPS_DP
++---------------------------+---------+------------+
+|           Event           | Counter | HWThread 0 |
++---------------------------+---------+------------+
+|      ACTUAL_CPU_CLOCK     |  FIXC1  |          0 |
+|       MAX_CPU_CLOCK       |  FIXC2  |          0 |
+|    RETIRED_INSTRUCTIONS   |   PMC0  | 1265883862 |
+|    CPU_CLOCKS_UNHALTED    |   PMC1  | 1125136498 |
+| RETIRED_SSE_AVX_FLOPS_ALL |   PMC2  |  238573578 |
+|           MERGE           |   PMC3  |          0 |
++---------------------------+---------+------------+
+
++----------------------+------------+
+|        Metric        | HWThread 0 |
++----------------------+------------+
+|  Runtime (RDTSC) [s] |     0.5286 |
+| Runtime unhalted [s] |          0 |
+|      Clock [MHz]     |          0 |
+|          CPI         |     0.8888 |
+|     DP [MFLOP/s]     |   451.3619 |
++----------------------+------------+
+
