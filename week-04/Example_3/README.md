@@ -6,9 +6,9 @@ This experiment measures the execution time of the AoSoA program for different a
 
 The program uses three arrays: `R`, `G`, and `B`, and measures the time needed to process their elements.
 
-- `N` – number of elements
-- `V` – vector length
-- Execution time – measured in milliseconds (ms)
+N – number of elements
+V – vector length
+Execution time – measured in milliseconds (ms)
 
 ## Test Configuration
 
