@@ -1,0 +1,172 @@
+============================================================
+       PARALLEL SUMMATION ALGORITHMS - TESTING
+============================================================
+
+============================================================
+TESTING WITH 2^10 = 1024 ELEMENTS
+============================================================
+Expected accurate sum: 51.2000000512000028
+
+Standard double    | Error: 1.368478247388e-12 | Relative error: 2.672809074256e-14 | Runtime: 0.00000456 s
+Long double        | Error: 6.834810495349e-16 | Relative error: 1.334923923538e-17 | Runtime: 0.00000855 s
+Pairwise           | Error: 2.869232629266e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00001461 s
+Kahan              | Error: 2.869232629266e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00001424 s
+Knuth              | Error: 2.869232629266e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00002300 s
+
+============================================================
+TESTING WITH 2^11 = 2048 ELEMENTS
+============================================================
+Expected accurate sum: 102.400000102400006
+
+Standard double    | Error: 2.784786290455e-13 | Relative error: 2.719517859053e-15 | Runtime: 0.00000881 s
+Long double        | Error: 1.366962099070e-15 | Relative error: 1.334923923538e-17 | Runtime: 0.00001700 s
+Pairwise           | Error: 5.738465258531e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00003988 s
+Kahan              | Error: 5.738465258531e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00002277 s
+Knuth              | Error: 5.738465258531e-15 | Relative error: 5.603969973430e-17 | Runtime: 0.00003674 s
+
+============================================================
+TESTING WITH 2^12 = 4096 ELEMENTS
+============================================================
+Expected accurate sum: 204.800000204800011
+
+Standard double    | Error: 3.281012961320e-11 | Relative error: 1.602057108418e-13 | Runtime: 0.00001409 s
+Long double        | Error: 1.147693051706e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00002723 s
+Pairwise           | Error: 1.147693051706e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00003910 s
+Kahan              | Error: 1.147693051706e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00004546 s
+Knuth              | Error: 1.147693051706e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00007345 s
+
+============================================================
+TESTING WITH 2^13 = 8192 ELEMENTS
+============================================================
+Expected accurate sum: 409.600000409600023
+
+Standard double    | Error: 2.628461337473e-11 | Relative error: 6.417141930772e-14 | Runtime: 0.00002814 s
+Long double        | Error: 3.388955782668e-14 | Relative error: 8.273817820506e-17 | Runtime: 0.00005440 s
+Pairwise           | Error: 2.295386103413e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00008576 s
+Kahan              | Error: 2.295386103413e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00009094 s
+Knuth              | Error: 2.295386103413e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00014684 s
+
+============================================================
+TESTING WITH 2^14 = 16384 ELEMENTS
+============================================================
+Expected accurate sum: 819.200000819200045
+
+Standard double    | Error: 4.815315368667e-10 | Relative error: 5.878070512514e-13 | Runtime: 0.00005627 s
+Long double        | Error: 1.748601263785e-14 | Relative error: 2.134523024946e-17 | Runtime: 0.00016690 s
+Pairwise           | Error: 4.590772206825e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00020535 s
+Kahan              | Error: 4.590772206825e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00018184 s
+Knuth              | Error: 4.590772206825e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00029374 s
+
+============================================================
+TESTING WITH 2^15 = 32768 ELEMENTS
+============================================================
+Expected accurate sum: 1638.40000163840009
+
+Standard double    | Error: 3.330106190802e-10 | Relative error: 2.032535514814e-13 | Runtime: 0.00011280 s
+Long double        | Error: 1.770805724277e-13 | Relative error: 1.080814039616e-16 | Runtime: 0.00023081 s
+Pairwise           | Error: 9.181544413650e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00037586 s
+Kahan              | Error: 9.181544413650e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00036388 s
+Knuth              | Error: 9.181544413650e-14 | Relative error: 5.603969973430e-17 | Runtime: 0.00063819 s
+
+============================================================
+TESTING WITH 2^16 = 65536 ELEMENTS
+============================================================
+Expected accurate sum: 3276.80000327680018
+
+Standard double    | Error: 4.294651301251e-10 | Relative error: 1.310623564745e-13 | Runtime: 0.00022577 s
+Long double        | Error: 8.679723606519e-13 | Relative error: 2.648841430005e-16 | Runtime: 0.00043530 s
+Pairwise           | Error: 1.836308882730e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00072761 s
+Kahan              | Error: 1.836308882730e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00074929 s
+Knuth              | Error: 1.836308882730e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00124831 s
+
+============================================================
+TESTING WITH 2^17 = 131072 ELEMENTS
+============================================================
+Expected accurate sum: 6553.60000655360036
+
+Standard double    | Error: 9.220999519499e-09 | Relative error: 1.407012864728e-12 | Runtime: 0.00045561 s
+Long double        | Error: 3.867572928584e-12 | Relative error: 5.901447944209e-16 | Runtime: 0.00087296 s
+Pairwise           | Error: 3.672617765460e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00156726 s
+Kahan              | Error: 3.672617765460e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00129251 s
+Knuth              | Error: 3.672617765460e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00209957 s
+
+============================================================
+TESTING WITH 2^18 = 262144 ELEMENTS
+============================================================
+Expected accurate sum: 13107.2000131072007
+
+Standard double    | Error: 3.597341891037e-08 | Relative error: 2.744554052307e-12 | Runtime: 0.00082915 s
+Long double        | Error: 1.196109877810e-11 | Relative error: 9.125594151413e-16 | Runtime: 0.00161857 s
+Pairwise           | Error: 7.345235530920e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00442038 s
+Kahan              | Error: 7.345235530920e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00280266 s
+Knuth              | Error: 7.345235530920e-13 | Relative error: 5.603969973430e-17 | Runtime: 0.00422074 s
+
+============================================================
+TESTING WITH 2^19 = 524288 ELEMENTS
+============================================================
+Expected accurate sum: 26214.4000262144015
+
+Standard double    | Error: 5.661728348372e-07 | Relative error: 2.159777962765e-11 | Runtime: 0.00161635 s
+Long double        | Error: 5.817035741984e-11 | Relative error: 2.219023031680e-15 | Runtime: 0.00313221 s
+Pairwise           | Error: 1.469047106184e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.00711249 s
+Kahan              | Error: 1.469047106184e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.00531348 s
+Knuth              | Error: 1.469047106184e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.00876871 s
+
+============================================================
+TESTING WITH 2^20 = 1048576 ELEMENTS
+============================================================
+Expected accurate sum: 52428.8000524288029
+
+Standard double    | Error: 4.945147971114e-07 | Relative error: 9.432121212327e-12 | Runtime: 0.00318368 s
+Long double        | Error: 7.326654838380e-10 | Relative error: 1.397448507510e-14 | Runtime: 0.00622523 s
+Pairwise           | Error: 2.938094212368e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.01534636 s
+Kahan              | Error: 2.938094212368e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.01107809 s
+Knuth              | Error: 2.938094212368e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.01751669 s
+
+============================================================
+TESTING WITH 2^21 = 2097152 ELEMENTS
+============================================================
+Expected accurate sum: 104857.600104857606
+
+Standard double    | Error: 3.569549825500e-06 | Relative error: 3.404187986307e-11 | Runtime: 0.00646870 s
+Long double        | Error: 2.807787780057e-09 | Relative error: 2.677715089082e-14 | Runtime: 0.01243596 s
+Pairwise           | Error: 5.876188424736e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.03367611 s
+Kahan              | Error: 5.876188424736e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.02105870 s
+Knuth              | Error: 5.876188424736e-12 | Relative error: 5.603969973430e-17 | Runtime: 0.03393996 s
+
+============================================================
+TESTING WITH 2^22 = 4194304 ELEMENTS
+============================================================
+Expected accurate sum: 209715.200209715212
+
+Standard double    | Error: 1.889060960991e-05 | Relative error: 9.007744594107e-11 | Runtime: 0.01311730 s
+Long double        | Error: 5.754685616921e-10 | Relative error: 2.744047933181e-15 | Runtime: 0.02608665 s
+Pairwise           | Error: 1.175237684947e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.06891173 s
+Kahan              | Error: 1.175237684947e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.04272669 s
+Knuth              | Error: 1.175237684947e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.06766312 s
+
+============================================================
+TESTING WITH 2^23 = 8388608 ELEMENTS
+============================================================
+Expected accurate sum: 419430.400419430423
+
+Standard double    | Error: 4.300059495677e-05 | Relative error: 1.025214073986e-10 | Runtime: 0.02582046 s
+Long double        | Error: 6.721910494889e-08 | Relative error: 1.602628347437e-13 | Runtime: 0.05024550 s
+Pairwise           | Error: 2.350475369894e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.13493188 s
+Kahan              | Error: 2.350475369894e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.08518060 s
+Knuth              | Error: 2.350475369894e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.13703205 s
+
+============================================================
+TESTING WITH 2^24 = 16777216 ELEMENTS
+============================================================
+Expected accurate sum: 838860.800838860847
+
+Standard double    | Error: 1.419517167278e-05 | Relative error: 1.692196328471e-11 | Runtime: 0.05256725 s
+Long double        | Error: 5.379666845329e-08 | Relative error: 6.413062620102e-14 | Runtime: 0.10163425 s
+Pairwise           | Error: 4.700950739789e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.28030365 s
+Kahan              | Error: 4.700950739789e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.17030516 s
+Knuth              | Error: 4.700950739789e-11 | Relative error: 5.603969973430e-17 | Runtime: 0.27861893 s
+
+============================================================
+ALL TESTS COMPLETE!
+============================================================
