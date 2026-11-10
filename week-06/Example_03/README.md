@@ -1,180 +1,183 @@
-# Lab 06 – SIMD Vectorization
+# Lab 06 – Vectorization (Example_03)
 
 ## 1. Introduction
 
-In this lab, I worked with the `timestep` example. The main goal was to test different SIMD optimizations and see how GCC handles vectorization.
+The goal of this assignment was to improve the `Example_03` code using different vectorization techniques. I used the optimization files from the official book repository: `timestep_opt1.c`, `timestep_opt2.c` and `timestep_opt3.c`.
 
-I tested three versions of the code: Opt1, Opt2 and Opt3. I also tested Opt3 with additional compiler flags.
+I compiled and tested each version and checked the compiler output and performance results using LIKWID.
 
-## 2. My computer and compiler
+Vectorization means that the processor can perform the same operation on multiple data elements at the same time. This is called SIMD (Single Instruction, Multiple Data). It can improve program performance because one instruction works with several values instead of processing them one by one.
 
-- Operating system: Ubuntu 24.04 (WSL2)
-- CPU: AMD Ryzen 5 5625U
-- CPU architecture: AMD Zen3
+## 2. System and compiler
+
+The tests were performed using:
+
+- Operating system: Ubuntu 24.04.4 LTS (WSL2)
+- Processor: AMD Ryzen 5 5625U with Radeon Graphics
+- Architecture: AMD Zen 3
 - Compiler: GCC 13.3.0
-- LIKWID: 5.5.1
-- Vector width: 256 bits (32 bytes)
+- LIKWID version: 5.5.1
+- Vector width: 256 bits
 
-My CPU supports AVX2. One 256-bit vector can hold four `double` values.
+I used the compiler option `-mprefer-vector-width=256`.
 
-## 3. Code versions
+A 256-bit vector has a size of 32 bytes. Since one double value uses 64 bits (8 bytes), one vector can contain four double values.
 
-### Opt1
+This means that the processor can work with four double values in one vector instruction.
 
-In Opt1, I added the SIMD reduction:
+## 3. Compiler options
 
-```c
-#pragma omp simd reduction(min:mymindt)
-```
+The following compiler options were used:
 
-This is used to find the smallest `dt` value from all loop iterations.
+- `-O3` – enables a high level of compiler optimization.
+- `-fstrict-aliasing` – allows the compiler to make assumptions about how pointers access memory.
+- `-ftree-vectorize` – enables loop vectorization.
+- `-fopenmp-simd` – enables OpenMP SIMD directives.
+- `-march=native` – allows the compiler to use instructions supported by the current processor.
+- `-mtune=native` – optimizes the generated code for the current processor.
+- `-mprefer-vector-width=256` – tells the compiler to prefer 256-bit vector instructions.
+- `-fopt-info-vec-optimized` and `-fopt-info-vec-missed` – show which loops were vectorized and which were not.
 
-### Opt2
+## 4. Optimization 1 – timestep_opt1.c
 
-Opt2 uses the same reduction, but also has private variables:
+In the first version, I used the OpenMP SIMD directive with a reduction:
 
-```c
-#pragma omp simd private(wavespeed, xspeed, yspeed, dt) reduction(min:mymindt)
-```
+`#pragma omp simd reduction(min:mymindt)`
 
-The temporary variables are private for each SIMD iteration.
+The reduction is needed because the program calculates the minimum timestep value. Each vector lane can calculate its own minimum value, and at the end these values are combined to get the final minimum.
 
-### Opt3
+The compiler reported:
 
-Opt3 also uses SIMD reduction. The difference is that the temporary variables are declared inside the loop.
+`loop vectorized using 32 byte vectors`
 
-### Opt3 with extra flags
+This means that the main loop was vectorized using 256-bit vectors. However, another part of the loop was not vectorized because of control flow.
 
-For the last version, I used Opt3 with two additional compiler flags:
+The program output was:
 
-```bash
--fno-trapping-math -fno-math-errno
-```
+`Minimum dt is 0.016964`
 
-These flags allow the compiler to perform more floating-point optimizations.
+## 5. Optimization 2 – timestep_opt2.c
 
-## 4. Compiler options
+In the second version, I used both `private` and `reduction` in the OpenMP SIMD directive:
 
-I used these compiler options:
+`#pragma omp simd private(wavespeed, xspeed, yspeed, dt) reduction(min:mymindt)`
 
-```bash
--g -O3 -fstrict-aliasing -ftree-vectorize -fopenmp-simd \
--march=native -mtune=native -mprefer-vector-width=256
-```
+The `private` clause gives each SIMD lane its own copy of the temporary variables. This prevents different iterations from using the same temporary values.
 
-I also used these options to get information about vectorization:
+The `reduction` clause combines the minimum values at the end of the loop.
 
-```bash
--fopt-info-vec-optimized -fopt-info-vec-missed
-```
+The compiler also reported:
 
-The compiler reports are saved in separate files:
+`loop vectorized using 32 byte vectors`
 
-- `compile_opt1.txt`
-- `compile_opt2.txt`
-- `compile_opt3.txt`
-- `compile_opt3_fast.txt`
+The main loop was vectorized using 256-bit vectors, while another part was not vectorized because of control flow.
 
-## 5. Compiler results
+The output was the same:
 
-GCC reported that the main loop in all three versions was vectorized using 32-byte vectors.
+`Minimum dt is 0.016964`
 
-| Version | Compiler result |
-|---|---|
-| Opt1 | Main loop vectorized using 32-byte vectors |
-| Opt2 | Main loop vectorized using 32-byte vectors |
-| Opt3 | Main loop vectorized using 32-byte vectors |
-| Opt3 with extra flags | Main loop and an additional loop part vectorized |
+## 6. Optimization 3 – timestep_opt3.c
 
-For the first three versions, GCC also reported that another part of the loop could not be vectorized because of control flow.
+In the third version, the temporary variables were declared inside the loop. This changes how the variables are handled during each iteration.
 
-For the final Opt3 version, I added:
+The SIMD directive with reduction was also used:
 
-```bash
--fno-trapping-math -fno-math-errno
-```
+`#pragma omp simd reduction(min:mymindt)`
 
-After that, GCC also reported vectorization for an additional loop part.
+The compiler reported:
 
-The compiler reports show that the vector width is 32 bytes. This is 256 bits, which can hold four double values.
+`loop vectorized using 32 byte vectors`
 
-## 6. Program results
+The main loop was vectorized using 256-bit vectors. Another part of the code was still not vectorized because of control flow.
 
-I compiled and ran all four versions. They all gave the same result:
+The program produced the same result:
 
-```text
-Minimum dt is 0.016964
-```
+`Minimum dt is 0.016964`
 
-| Version | Result |
-|---|---:|
-| Opt1 | 0.016964 |
-| Opt2 | 0.016964 |
-| Opt3 | 0.016964 |
-| Opt3 with extra flags | 0.016964 |
+## 7. Optimization 3 with additional compiler flags
 
-This shows that all versions produced the same output for this test.
+As required in the assignment, I compiled `timestep_opt3.c` again using the additional flags:
 
-## 7. LIKWID results
+- `-fno-trapping-math`
+- `-fno-math-errno`
 
-At first, LIKWID could not access the hardware performance counters in WSL2. I used the following command to load the MSR module:
+These options allow the compiler to make additional optimizations related to floating-point calculations. They also allow the compiler to make assumptions about floating-point exceptions and mathematical function error handling.
 
-```bash
-sudo modprobe msr
-```
+After adding these flags, the compiler reported that another loop part was also vectorized using 32-byte vectors.
 
-After this, the MSR device became available.
+This means that the compiler was able to vectorize more of the code than in the previous versions.
 
-The `MEM_DP` performance group was not available in my LIKWID installation for the Zen3 architecture. I checked the available groups and used `FLOPS_DP` instead.
+The program still produced:
 
-I measured the four versions with:
+`Minimum dt is 0.016964`
 
-```bash
-sudo likwid-perfctr -C 0 -f -g FLOPS_DP ./stream_triad_opt1
-```
+## 8. Vector width and comparison with the professor's example
 
-I used the same command for the other three executables.
+The professor's example shows how LIKWID can be used to check whether the processor executes 128-bit or 256-bit packed double instructions.
 
-The results were:
+A 128-bit vector contains two double values, while a 256-bit vector contains four double values.
 
-| Version | Runtime (s) | DP (MFLOP/s) | CPI |
+In the professor's example, the following counters were used:
+
+- `FP_ARITH_INST_RETIRED_128B_PACKED_DOUBLE`
+- `FP_ARITH_INST_RETIRED_256B_PACKED_DOUBLE`
+- `FP_ARITH_INST_RETIRED_SCALAR_DOUBLE`
+
+These counters show the number of executed floating-point instructions of different widths.
+
+In my case, I used an AMD Ryzen 5 5625U processor with Zen 3 architecture. The installed LIKWID version did not provide the `MEM_DP` performance group used in the professor's example.
+
+I checked the available performance groups and used `FLOPS_DP` instead. This group provides information about double-precision floating-point performance.
+
+Because the available group did not provide the same separate 128-bit and 256-bit counters as the professor's example, I used the GCC vectorization report to identify the vector width.
+
+The compiler confirmed the use of 32-byte vectors, which means 256-bit vectors.
+
+Therefore, the compiler output was used to check the vector width, while LIKWID was used to compare performance.
+
+## 9. LIKWID performance results
+
+I used the `FLOPS_DP` performance group to measure the performance of each version.
+
+| Version | Runtime (s) | CPI | DP (MFLOP/s) |
 |---|---:|---:|---:|
-| Opt1 | 1.9397 | 41.2444 | 1.4869 |
-| Opt2 | 1.6679 | 47.9645 | 1.4647 |
-| Opt3 | 2.2419 | 35.6846 | 1.5669 |
-| Opt3 with extra flags | 2.5106 | 31.8652 | 2.9046 |
+| Opt1 | 1.9397 | 1.4869 | 41.2444 |
+| Opt2 | 1.6679 | 1.4647 | 47.9645 |
+| Opt3 | 2.2419 | 1.5669 | 35.6846 |
+| Opt3 Fast | 2.5106 | 2.9046 | 31.8652 |
 
-The LIKWID output showed the following warning:
+Runtime shows how long the program needed to execute. Lower runtime means faster execution.
 
-```text
-Unknown fixed event 0x1
-```
+CPI (Cycles Per Instruction) shows the average number of processor cycles needed for one instruction. A lower CPI is generally better.
 
-However, LIKWID still displayed other counters and performance metrics. I used Runtime (RDTSC), DP (MFLOP/s) and CPI for the comparison. Some other metrics, such as Runtime unhalted and Clock, were displayed as zero, so I did not use them.
+DP (MFLOP/s) shows double-precision floating-point performance. A higher value means more floating-point operations were performed per second.
 
-### Explanation of the results
+Based on these measurements, Opt2 had the shortest runtime and the highest DP performance. It was the best result in this test.
 
-Opt2 had the best result in my measurements. It had the shortest runtime (1.6679 seconds), the highest DP performance (47.9645 MFLOP/s) and the lowest CPI (1.4647).
+The Opt3 version with additional flags was not faster in this measurement. This shows that additional compiler optimizations do not always make a program faster.
 
-Opt3 with extra flags was slower in this measurement than the other versions. This shows that additional compiler optimizations do not always improve the execution time.
+The measurements were performed in WSL2, so system activity and measurement conditions can also affect the results.
 
-These are individual measurements, so the results can change depending on CPU load and system conditions.
+### LIKWID note
 
-The LIKWID reports are saved in:
+During the tests, LIKWID displayed the warning:
 
-- `likwid_opt1.txt`
-- `likwid_opt2.txt`
-- `likwid_opt3.txt`
-- `likwid_opt3_fast.txt`
+`Unknown fixed event 0x1`
 
-## 8. Conclusion
+However, it still displayed the other counters and performance results.
 
-In this lab, I tested different SIMD versions of the `timestep` code.
+The values for `Runtime unhalted` and `Clock` were zero in these measurements, so they were not used for comparison. I used the RDTSC runtime, CPI and DP values instead.
 
-All four versions produced the same result. GCC reported vectorization using 32-byte vectors, which means that four double values can fit in one vector.
+## 10. Conclusion
 
-The additional compiler flags helped GCC vectorize another part of the Opt3 code. However, this did not give a better runtime in my measurements.
+In this assignment, I tested three different vectorization versions and one additional compilation of Opt3 with extra floating-point flags.
 
-According to my LIKWID results, Opt2 was the fastest version in this test.
+All versions produced the same minimum timestep result: `0.016964`.
 
-I also managed to run LIKWID in WSL2 after loading the MSR module. I used the `FLOPS_DP` group because `MEM_DP` was not available for my CPU architecture in the installed LIKWID version.
+The GCC compiler reported that the main loops were vectorized using 32-byte vectors. This means that 256-bit SIMD vectors were used, with four double values in each vector.
+
+The first three versions still had some code that was not vectorized because of control flow. With the additional flags in Opt3, the compiler was able to vectorize another part of the code.
+
+The LIKWID measurements showed that Opt2 had the best performance in my tests, with a runtime of 1.6679 seconds and 47.9645 MFLOP/s.
+
+Overall, this assignment helped me understand how SIMD directives, reduction, private variables and compiler options can affect vectorization and program performance.
