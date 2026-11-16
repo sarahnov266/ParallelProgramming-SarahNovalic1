@@ -1,0 +1,29 @@
+IT 2004 - Lab 07: OpenMP that performs
+Performance comparison of stencil implementations
+
+Hardware:
+Available CPU threads: 12
+OpenMP threads used: 12
+Iterations: 10000
+
+1. stencil_opt2
+Initialization: 0.045643 s
+Flush:          90.334493 s
+Stencil:        63.195839 s
+Total:         153.579253 s
+
+2. stencil_opt4
+Initialization: 0.044814 s
+Flush:          84.633624 s
+Stencil:        63.679325 s
+Total:         152.178170 s
+
+3. stencil_opt6
+Initialization: 0.038204 s
+Flush:          87.724739 s
+Stencil:        58.635965 s
+Total:         150.148699 s
+
+Conclusion:
+stencil_opt6 achieved the shortest total execution time
+with 150.148699 seconds.
